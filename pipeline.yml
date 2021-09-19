@@ -1,0 +1,45 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('GIT Clone') {
+            steps {
+                echo 'GIT Clone Phase'
+                sh '''#!/bin/bash
+                 echo "hello world" 
+                 git clone https://github.com/CodvaTech-Labs/maven-demo.git
+                '''
+            }
+        }
+        stage('Build') {
+            steps {
+                echo 'Hello Build Phase'
+                sh '''#!/bin/bash
+                 echo "hello world" 
+                 java -version
+                 pwd
+                 cd maven-demo/LoginWebApp
+                 mvn deploy
+                '''
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Hello Deploy Phase'
+                build 'ansible_playbook'
+            }
+        }
+        
+        stage('Monitoring') {
+            steps {
+                echo 'Hello Deploy Phase'
+                build 'URL Status Check'
+            }
+        }
+    }
+    post { 
+        always { 
+            cleanWs()
+        }
+    }
+}

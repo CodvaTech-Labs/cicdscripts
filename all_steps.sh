@@ -83,3 +83,21 @@ Install Ansible plugin for Jenkins
 Setup CD job
 Run below ansible playbook from Jenkins
 https://github.com/CodvaTech-Labs/cicdscripts/blob/main/deployment.yml
+
+
+
+#Tomcat Steps
+On Amazon Linux 2 AMI:
+List extra packages (you will see tomcat8 versions):
+$ amazon-linux-extras list
+Install extra packages:
+$ sudo amazon-linux-extras install tomcat8.5
+Start tomcat service:
+$ sudo systemctl start tomcat
+Create index file:
+    $ cd /usr/share/tomcat/webapps
+    $ sudo mkdir ROOT
+    $ cd ROOT/
+    $ sudo vi index.html #add some HTML content
+Next you could view your site at localhost:8080
+
